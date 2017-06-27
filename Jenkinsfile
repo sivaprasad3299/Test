@@ -1,15 +1,17 @@
 pipeline {
-    agent any
+    agent none 
     stages {
-        stage('Example') {
+        stage('Example Build') {
+            agent { docker 'maven:3-alpine' } 
             steps {
-                echo 'Hello World'
+                echo 'Hello, Maven'
             }
         }
-    }
-    post { 
-        always { 
-            echo 'I will always say Hello again!'
+        stage('Example Test') {
+            agent { docker 'openjdk:8-jre' } 
+            steps {
+                echo 'Hello, JDK'
+            }
         }
     }
 }
